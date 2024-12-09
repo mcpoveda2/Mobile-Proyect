@@ -25,7 +25,7 @@ export class Tab2Page {
     opinion: new FormControl("", Validators.required)
   });
 
-  
+  dataList: any[] = [];
 
   collectionName = 'reviews';
   constructor(private providerService: ProviderService) {}
@@ -34,4 +34,14 @@ export class Tab2Page {
         this.myForm.reset()
     });
   } 
+
+  ngOnInit() {
+    this.loadData();
+}
+
+  loadData() {
+      this.providerService.readCollection(this.collectionName).subscribe((data) => {
+          this.dataList = data;
+      });
+  }
 }

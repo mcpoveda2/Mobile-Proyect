@@ -15,4 +15,9 @@ export class ProviderService {
     const colRef = collection(this.firestoreService, collectionName);
     return addDoc(colRef, data);
   }
+
+  readCollection(collectionName: string): Observable<any[]> {
+    const colRef = collection(this.firestoreService, collectionName);
+    return collectionData(colRef, { idField: 'id' });
+}
 }
