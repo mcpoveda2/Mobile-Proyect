@@ -69,7 +69,19 @@
   }
   
   .sectionInformation ion-card {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     --ion-card-background: #2c3e50;
     color: white;
+    position: relative; /* Para posicionar el contenedor de etiquetas */
   }
+
+  .tags-category{
+    margin-bottom: 8px;
+    margin-top: 0px;
+  }
+  
+  ion-chip {
+    font-size: 0.9rem;
+  }
+  
+  
