@@ -1,24 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>DearDiary</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content class="ion-padding" color="light">
+  <div class="question-container">
+    <h2>How are you feeling today?</h2>
+    <ion-icon [name]="currentEmotion.icon" class="emotion-icon"></ion-icon>
+    <p class="emotion-label">{{ currentEmotion.label }}</p>
+  </div>
 
-  <ion-card>
-    <ion-card-header>
+  <ion-range
+    min="0"
+    max="4"
+    snaps="true"
+    (ionChange)="onEmotionChange($event)"
+  >
+    <ion-label slot="start">Sad</ion-label>
+    <ion-label slot="end">Happy</ion-label>
+  </ion-range>
 
-      <ion-card-title class="titulo">Descripción</ion-card-title>
-    </ion-card-header>
-  
-    <ion-card-content>
-      <p id="descripcion">
-      Una aplicación móvil desarrollada en Angular Ionic es un software multiplataforma que utiliza el framework Angular para construir la lógica y la estructura de la aplicación, junto con el framework Ionic para crear una interfaz de usuario atractiva y funcional. Ionic proporciona componentes y herramientas para diseñar aplicaciones que se sienten y se ven nativas en dispositivos iOS y Android. La aplicación se puede desplegar tanto en la web como en tiendas de aplicaciones móviles. Utiliza tecnologías web como HTML, CSS y JavaScript, lo que facilita la reutilización de código y la implementación rápida.
-      </p>
-    </ion-card-content>
-
-  </ion-card>
+  <ion-button expand="block" shape="round" (click)="onContinue()">Continue</ion-button>
 </ion-content>

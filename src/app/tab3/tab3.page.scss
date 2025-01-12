@@ -1,9 +1,34 @@
-.titulo {
-    color: var(--ion-color-primary);
-      font-weight: bold;
-      text-align: center;
+ion-content {
+  --background: #ffece7;
+
+  .question-container {
+    text-align: center;
+    margin: 2rem 0;
+
+    h2 {
+      font-size: 1.5rem;
+      color: #444;
+    }
+
+    .emotion-icon {
+      font-size: 4rem;
+      color: #ff7043;
+      margin: 1rem 0;
+    }
+
+    .emotion-label {
+      font-size: 1.2rem;
+      color: #444;
+    }
   }
- 
-  p#descripcion {
-    text-align: justify;
+
+  ion-range {
+    margin: 2rem 0;
   }
+
+  ion-button {
+    --background: #ff7043;
+    --color: #fff;
+    --border-radius: 10px;
+  }
+}
