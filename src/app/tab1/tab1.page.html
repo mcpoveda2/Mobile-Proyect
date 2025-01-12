@@ -1,15 +1,39 @@
 <ion-content [fullscreen]="true" class="tab1-content">
+  <!-- Contenedor del encabezado -->
   <div class="header-container">
     <div class="text-container">
       <h1>
-        <span class="greeting">Hi <strong>Anna,</strong></span>
+        <span class="greeting">Hi <strong>{{ userName }},</strong></span>
         <br />
         <span class="subtext">today can be a good day</span>
       </h1>
       <div class="underline"></div>
     </div>
     <ion-avatar class="profile-avatar">
-      <img src="assets/img/profile-picture.jpg" alt="Profile Picture" />
+      <img [src]="profilePicture" alt="Profile Picture" />
     </ion-avatar>
+  </div>
+
+  <!-- Sección de 'Recent Entries' -->
+  <div class="recent-entries-header">
+    <h2 class="text-recent">Recent entries</h2>
+    <ion-select placeholder="Sort by" class="sort-select" (ionChange)="sortEntries($event)">
+      <ion-select-option *ngFor="let sortOption of sortOptions" [value]="sortOption.value">
+        {{ sortOption.label }}
+      </ion-select-option>
+    </ion-select>
+  </div>
+
+  <!-- Tarjetas dinámicas -->
+  <div class="sectionInformation">
+    <ion-card *ngFor="let card of sortedCards">
+      <ion-card-header>
+        <ion-card-title>{{ card.title }}</ion-card-title>
+        <ion-card-subtitle>{{ card.subtitle }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{ card.content }}
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
