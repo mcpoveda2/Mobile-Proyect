@@ -19,12 +19,21 @@ ion-header {
   
   .fab-container {
     position: absolute;
-    top: 620px; /* Hace que el botón flote hacia arriba */
-    left: 50%;
-    transform: translateX(-50%); /* Centra el botón horizontalmente */
-    z-index: 10; /* Asegura que el botón esté por encima */
+    top: 93%; /* Coloca el botón a la mitad de la pantalla verticalmente */
+    left: 50%; /* Coloca el botón a la mitad horizontalmente */
+    transform: translate(-50%, -50%); /* Centra el botón completamente */
+    z-index: 10; /* Asegura que el botón esté por encima del contenido */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px; /* Ajusta el tamaño del botón según el diseño */
+    height: 60px;
+    border-radius: 50%; /* Hace que el botón sea completamente redondo */
+    background-color: var(--ion-color-primary); /* Usa el color primario de Ionic */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Añade una sombra elegante */
   }
   
+
 
   ion-icon {
     font-size: 20px;

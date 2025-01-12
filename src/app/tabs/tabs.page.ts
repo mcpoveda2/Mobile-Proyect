@@ -6,6 +6,7 @@ import {
   IonIcon, 
   IonLabel, 
   IonFabButton, 
+  IonFab, 
   IonHeader, 
   IonToolbar, 
   IonTitle 
@@ -24,6 +25,7 @@ import { homeOutline, personOutline, add } from 'ionicons/icons';
     IonTabButton, 
     IonIcon, 
     IonLabel, 
+    IonFab, 
     IonFabButton, 
     IonHeader, 
     IonToolbar, 
@@ -35,5 +37,10 @@ export class TabsPage {
 
   constructor() {
     addIcons({ homeOutline, personOutline, add });
+  }
+
+  onFabClick() {
+    console.log('Floating Action Button clicked!');
+    // Aquí puedes añadir cualquier funcionalidad, como abrir un modal o navegar a otra página.
   }
 }

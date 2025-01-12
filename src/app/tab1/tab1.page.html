@@ -1,9 +1,15 @@
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<ion-content [fullscreen]="true" class="tab1-content">
+  <div class="header-container">
+    <div class="text-container">
+      <h1>
+        <span class="greeting">Hi <strong>Anna,</strong></span>
+        <br />
+        <span class="subtext">today can be a good day</span>
+      </h1>
+      <div class="underline"></div>
+    </div>
+    <ion-avatar class="profile-avatar">
+      <img src="assets/img/profile-picture.jpg" alt="Profile Picture" />
+    </ion-avatar>
+  </div>
 </ion-content>
