@@ -5,11 +5,57 @@
 </ion-header>
 
 <ion-content class="ion-padding" color="light">
-  <div class="question-container">
-    <h2>How are you feeling today?</h2>
-    <ion-icon [name]="currentEmotion.icon" class="emotion-icon"></ion-icon>
-    <p class="emotion-label">{{ currentEmotion.label }}</p>
+  <div class="profile-header">
+    <img src="assets/images/profile.jpg" alt="Profile" class="profile-img" />
+    <div class="profile-stats">
+      <div class="stat">
+        <span class="number">30</span>
+        <span class="label">Saved Notes</span>
+      </div>
+      <div class="stat">
+        <span class="number">20</span>
+        <span class="label">Saved Tasks</span>
+      </div>
+    </div>
   </div>
+
+  <ion-grid class="emotion-grid">
+    <ion-row>
+      <ion-col size="4" size-md="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-icon name="happy-outline" class="emotion-icon"></ion-icon>
+            <ion-card-title>Happy</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <span class="emotion-count">8</span>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4" size-md="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-icon name="sad-outline" class="emotion-icon"></ion-icon>
+            <ion-card-title>Sad</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <span class="emotion-count">4</span>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4" size-md="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-icon name="dislike-outline" class="emotion-icon"></ion-icon>
+            <ion-card-title>Bored</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <span class="emotion-count">3</span>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-range
     min="0"
