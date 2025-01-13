@@ -12,15 +12,14 @@ import {
   IonIcon,
   IonRange,
   IonButton,
-  IonLabel,
-} from '@ionic/angular/standalone';
+  IonLabel, IonCol, IonGrid, IonRow } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonRow, IonGrid, IonCol, 
     IonHeader,
     IonToolbar,
     IonTitle,
