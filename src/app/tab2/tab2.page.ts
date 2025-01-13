@@ -3,8 +3,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent ,IonCard, IonCardHeader, Io
   IonSelect, IonSelectOption, IonTextarea,IonButton,
   IonList, IonItem, IonLabel } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProviderService } from '../services/provider.service';
 
 
@@ -17,6 +16,7 @@ import { ProviderService } from '../services/provider.service';
     IonSelect, IonSelectOption, IonTextarea,IonButton,
     IonList, IonItem, IonLabel, ReactiveFormsModule]
 })
+
 export class Tab2Page {
 
   
