@@ -1,47 +1,49 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent ,IonCard, IonCardHeader, IonCardTitle, IonCardContent,
-  IonSelect, IonSelectOption, IonTextarea,IonButton,
-  IonList, IonItem, IonLabel } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
-import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { ProviderService } from '../services/provider.service';
-
+import {
+  IonContent,
+  IonItem,
+  IonInput,
+  IonIcon,
+  IonDatetime,
+  IonModal,
+} from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent,IonCard, IonCardHeader, IonCardTitle, IonCardContent,
-    IonSelect, IonSelectOption, IonTextarea,IonButton,
-    IonList, IonItem, IonLabel, ReactiveFormsModule]
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonContent,
+    IonItem,
+    IonInput,
+    IonIcon,
+    IonDatetime,
+    IonModal,
+  ],
 })
-
 export class Tab2Page {
+  public selectedDate: string = ''; // Fecha seleccionada en formato ISO
+  public formattedDate: string = ''; // Fecha formateada para el input
+  public isDatePickerOpen: boolean = false; // Controla si el modal está abierto
 
-  
-  myForm: FormGroup = new FormGroup({
-    score: new FormControl("", Validators.required),
-    opinion: new FormControl("", Validators.required)
-  });
+  constructor() {}
 
-  dataList: any[] = [];
+  openDatePicker() {
+    this.isDatePickerOpen = true; // Abre el modal
+  }
 
-  collectionName = 'reviews';
-  constructor(private providerService: ProviderService) {}
-  onSubmit() {
-    this.providerService.createDocument(this.collectionName, this.myForm.value).then(() => {
-        this.myForm.reset()
-    });
-  } 
+  closeDatePicker() {
+    this.isDatePickerOpen = false; // Cierra el modal
+  }
 
-  ngOnInit() {
-    this.loadData();
-}
-
-  loadData() {
-      this.providerService.readCollection(this.collectionName).subscribe((data) => {
-          this.dataList = data;
-      });
+  onDateChange(event: any) {
+    const date = new Date(event.detail.value); // Convierte la fecha seleccionada a un objeto Date
+    this.formattedDate = date.toLocaleDateString(); // Formatea la fecha en formato local
+    this.closeDatePicker(); // Cierra el modal después de seleccionar la fecha
   }
 }

@@ -67,17 +67,27 @@
     font-size: 1rem;
     --placeholder-color: #1e3a56;
   }
+
+  .sectionInformation {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra las tarjetas */
+  }
   
   .sectionInformation ion-card {
     margin-bottom: 18px;
     --ion-card-background: #2c3e50;
     color: white;
     position: relative; /* Para posicionar el contenedor de etiquetas */
+    width: 88%;
+    height: 90%;
+    max-width: 400px;
   }
 
   .tags-category{
     margin-bottom: 8px;
     margin-top: 0px;
+    margin-left: 8px;
   }
   
   ion-chip {

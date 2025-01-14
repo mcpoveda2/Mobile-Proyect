@@ -1,0 +1,52 @@
+.tab2-content {
+    --ion-background-color: #ffece4; /* Fondo */
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  
+    .header-container {
+      text-align: center;
+      margin-top: 20px;
+  
+      .title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #2c3e50;
+      }
+    }
+  
+    .form-container {
+      margin-top: 20px;
+  
+      .form-label {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 8px;
+      }
+  
+      .date-picker {
+        --background: white;
+        --border-radius: 8px;
+        border: 1px solid #ffa27d;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 16px;
+  
+        .date-input {
+          font-size: 1rem;
+          color: #2c3e50;
+          padding: 8px;
+        }
+  
+        .calendar-icon {
+          font-size: 1.4rem;
+          color: #ffa27d;
+        }
+      }
+  
+      .hidden-datetime {
+        display: none; /* Oculta el ion-datetime */
+      }
+    }
+  }
+  
