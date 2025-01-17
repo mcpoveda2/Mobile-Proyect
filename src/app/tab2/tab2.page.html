@@ -1,34 +1,29 @@
 <ion-content [fullscreen]="true" class="tab2-content">
-  <!-- Título -->
   <div class="header-container">
     <h1 class="title">Add entry</h1>
   </div>
 
-  <!-- Campo para seleccionar la fecha -->
   <div class="form-container">
-    <label for="datetime" class="form-label">Select a date</label>
-    <ion-item class="date-picker">
-      <ion-input
-        readonly
-        [value]="formattedDate"
-        placeholder="Select date"
-        (click)="openDatePicker()"
-      ></ion-input>
-      <ion-icon name="calendar-outline" slot="end" (click)="openDatePicker()"></ion-icon>
-    </ion-item>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label class="form-label">Title</label>
+        <ion-input
+          [(ngModel)]="formData.title"
+          name="title"
+          placeholder="Enter a title"
+        ></ion-input>
+      </div>
 
-    <!-- ion-datetime dentro de un modal -->
-    <ion-modal [isOpen]="isDatePickerOpen" (ionModalDidDismiss)="closeDatePicker()">
-      <ion-content>
-        <ion-datetime
-          [(ngModel)]="selectedDate"
-          (ionChange)="onDateChange($event)"
-          presentation="date"
-          cancel-text="Cancel"
-          done-text="Done"
-        >
-        </ion-datetime> <!-- Cierre adecuado del componente -->
-      </ion-content>
-    </ion-modal>
+      <div class="form-group">
+        <label class="form-label">Place</label>
+        <ion-input
+          [(ngModel)]="formData.place"
+          name="place"
+          placeholder="Enter a place"
+        ></ion-input>
+      </div>
+
+      <ion-button expand="block" type="submit" color="primary">Save</ion-button>
+    </form>
   </div>
 </ion-content>

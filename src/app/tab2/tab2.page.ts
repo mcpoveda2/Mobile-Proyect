@@ -1,14 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  IonContent,
-  IonItem,
-  IonInput,
-  IonIcon,
-  IonDatetime,
-  IonModal,
-} from '@ionic/angular/standalone';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // Importa FormsModule para el uso de ngModel
+import { IonContent, IonInput, IonButton } from '@ionic/angular/standalone'; // Importa los componentes necesarios de Ionic
 
 @Component({
   selector: 'app-tab2',
@@ -16,34 +8,22 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['tab2.page.scss'],
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
     IonContent,
-    IonItem,
     IonInput,
-    IonIcon,
-    IonDatetime,
-    IonModal,
+    IonButton,
+    FormsModule // Importa FormsModule para usar ngModel
   ],
 })
 export class Tab2Page {
-  public selectedDate: string = ''; // Fecha seleccionada en formato ISO
-  public formattedDate: string = ''; // Fecha formateada para el input
-  public isDatePickerOpen: boolean = false; // Controla si el modal está abierto
+  // Propiedades para gestionar los datos del formulario
+  formData = {
+    title: '',
+    place: '',
+  };
 
-  constructor() {}
-
-  openDatePicker() {
-    this.isDatePickerOpen = true; // Abre el modal
-  }
-
-  closeDatePicker() {
-    this.isDatePickerOpen = false; // Cierra el modal
-  }
-
-  onDateChange(event: any) {
-    const date = new Date(event.detail.value); // Convierte la fecha seleccionada a un objeto Date
-    this.formattedDate = date.toLocaleDateString(); // Formatea la fecha en formato local
-    this.closeDatePicker(); // Cierra el modal después de seleccionar la fecha
+  // Método para manejar el envío del formulario
+  onSubmit() {
+    console.log('Form Data:', this.formData);
+    // Aquí puedes añadir lógica adicional, como enviar los datos a una API
   }
 }

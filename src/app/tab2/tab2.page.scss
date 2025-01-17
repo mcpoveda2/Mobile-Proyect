@@ -7,6 +7,7 @@
     .header-container {
       text-align: center;
       margin-top: 20px;
+      padding-top: 45px;
   
       .title {
         font-size: 1.8rem;
@@ -14,38 +15,58 @@
         color: #2c3e50;
       }
     }
+  }
+  .tab2-content {
+    --ion-background-color: #ffece4; /* Color de fondo suave */
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  
+    .header-container {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 45px;
+  
+      .title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #2c3e50; /* Azul oscuro para el título */
+      }
+    }
   
     .form-container {
-      margin-top: 20px;
+      margin-top: 0px;
+      padding: 16px;
   
-      .form-label {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #2c3e50;
-        margin-bottom: 8px;
-      }
+      .form-group {
+        margin-bottom: 24px;
   
-      .date-picker {
-        --background: white;
-        --border-radius: 8px;
-        border: 1px solid #ffa27d;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        margin-bottom: 16px;
+        .form-label {
+          font-size: 1rem;
+          font-weight: bold;
+          color: #2c3e50; /* Azul oscuro */
+          margin-bottom: 8px;
+          display: block;
+        }
   
-        .date-input {
+        ion-input {
+          --padding-start: 8px;
+          --padding-end: 8px;
+          --background: #ffffff;
+          --border-radius: 8px;
+          --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+          --border: 1px solid #f5a891; /* Color de borde suave */
           font-size: 1rem;
           color: #2c3e50;
-          padding: 8px;
-        }
-  
-        .calendar-icon {
-          font-size: 1.4rem;
-          color: #ffa27d;
         }
       }
   
-      .hidden-datetime {
-        display: none; /* Oculta el ion-datetime */
+      ion-button {
+        --background: #f5a891; /* Color de botón */
+        --background-activated: #f08b72; /* Color al presionar */
+        --border-radius: 8px;
+        font-size: 1rem;
+        font-weight: bold;
       }
     }
   }
