@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Importa FormsModule para el uso de ngModel
-import { IonContent, IonInput, IonButton } from '@ionic/angular/standalone'; // Importa los componentes necesarios de Ionic
+import { FormsModule } from '@angular/forms';
+import { IonContent, IonInput, IonButton } from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common'; // Importar CommonModule
 
 @Component({
   selector: 'app-tab2',
@@ -11,19 +12,36 @@ import { IonContent, IonInput, IonButton } from '@ionic/angular/standalone'; // 
     IonContent,
     IonInput,
     IonButton,
-    FormsModule // Importa FormsModule para usar ngModel
+    FormsModule,
+    CommonModule, // Asegúrate de agregarlo aquí
   ],
 })
 export class Tab2Page {
-  // Propiedades para gestionar los datos del formulario
+  // Datos del formulario
   formData = {
     title: '',
     place: '',
+    weather: '', // Campo para almacenar el clima seleccionado
   };
 
-  // Método para manejar el envío del formulario
+  // Opciones de clima
+  weatherOptions = [
+    'Sunny',
+    'Windy',
+    'Overcast',
+    'Rain showers',
+    'Thunderstorm',
+    'Rainy',
+    'Snow',
+  ];
+
+  // Método para seleccionar el clima
+  selectWeather(condition: string) {
+    this.formData.weather = condition;
+    console.log('Selected Weather:', condition);
+  }
+
   onSubmit() {
     console.log('Form Data:', this.formData);
-    // Aquí puedes añadir lógica adicional, como enviar los datos a una API
   }
 }

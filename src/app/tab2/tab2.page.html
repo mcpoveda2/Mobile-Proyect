@@ -23,6 +23,21 @@
         ></ion-input>
       </div>
 
+      <!-- Weather section -->
+      <div class="form-group">
+        <label class="form-label">Weather</label>
+        <div class="weather-container">
+          <div
+            *ngFor="let condition of weatherOptions"
+            class="weather-button"
+            [class.active]="formData.weather === condition"
+            (click)="selectWeather(condition)"
+          >
+            {{ condition }}
+          </div>
+        </div>
+      </div>
+
       <ion-button expand="block" type="submit" color="primary">Save</ion-button>
     </form>
   </div>
