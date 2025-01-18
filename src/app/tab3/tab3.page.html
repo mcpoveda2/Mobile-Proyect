@@ -66,23 +66,24 @@
   <ion-content class="ion-padding">
     <!-- Calendario usando ion-datetime -->
     <ion-datetime
+      (ionValueChange)="onDateSelected($event)"
       style="--background: #000; --color: #fff;"  
       presentation="date"
       [value]="selectedDate"
       first-day-of-week="1"
-      (ionChange)="onDateSelected($event)"
       locale="en-US"
-      show-default-buttons="true"
+      show-default-buttons="false"
     >
     </ion-datetime>
   
     <!-- Botón para confirmar la selección -->
     <!-- Contenedor para mostrar el contenido del día -->
+
   <div *ngIf="selectedDayContent" class="day-content">
     <h2>Contenido para {{ selectedDate | date: 'fullDate' }}</h2>
-    <ul>
-      <li *ngFor="let item of selectedDayContent">{{ item }}</li>
-    </ul>
+    <div class="image-container">
+      <img *ngFor="let image of selectedDayContent" [src]="image" alt="Imagen asociada al día" />
+    </div>
   </div>
 
   </ion-content>

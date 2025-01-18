@@ -161,13 +161,37 @@ ion-card-content {
   }
 }
 
-ion-datetime {
-  --background: #fff1f2;
-  --background-rgb: 255, 241, 242;
-  --border-color: #ff8c00;
 
-  border-radius: 16px;
-  box-shadow: rgba(var(--ion-color-rose-rgb), 0.3) 0px 10px 15px -3px;
+.day-content {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: var(--ion-background-color-step-550);
+  border-radius: 10px;
+  color: #000;
 }
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.image-container img {
+  width: 100%; 
+  height: auto; 
+  border-radius: 8px; 
+  object-fit: cover; 
+  border: 2px solid #ccc; 
+}
+
+@media (min-width: 768px) {
+  .image-container img {
+    max-width: 48%; /* Tamaño mayor en pantallas más grandes */
+  }
+}
+
+
+
 
 
