@@ -30,8 +30,8 @@
           <div
             *ngFor="let condition of weatherOptions"
             class="weather-button"
-            [class.active]="formData.weather === condition"
-            (click)="selectWeather(condition)"
+            [class.active]="formData.weather.includes(condition)"
+            (click)="toggleWeather(condition)"
           >
             {{ condition }}
           </div>

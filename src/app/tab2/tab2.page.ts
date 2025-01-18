@@ -8,20 +8,14 @@ import { CommonModule } from '@angular/common'; // Importar CommonModule
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
   standalone: true,
-  imports: [
-    IonContent,
-    IonInput,
-    IonButton,
-    FormsModule,
-    CommonModule, // Asegúrate de agregarlo aquí
-  ],
+  imports: [IonContent, IonInput, IonButton, FormsModule, CommonModule],
 })
 export class Tab2Page {
   // Datos del formulario
   formData = {
     title: '',
     place: '',
-    weather: '', // Campo para almacenar el clima seleccionado
+    weather: [] as string[], // Array para almacenar múltiples opciones seleccionadas
   };
 
   // Opciones de clima
@@ -35,10 +29,17 @@ export class Tab2Page {
     'Snow',
   ];
 
-  // Método para seleccionar el clima
-  selectWeather(condition: string) {
-    this.formData.weather = condition;
-    console.log('Selected Weather:', condition);
+  // Método para seleccionar/deseleccionar un clima
+  toggleWeather(condition: string) {
+    const index = this.formData.weather.indexOf(condition);
+    if (index === -1) {
+      // Si no está seleccionado, agregarlo
+      this.formData.weather.push(condition);
+    } else {
+      // Si ya está seleccionado, eliminarlo
+      this.formData.weather.splice(index, 1);
+    }
+    console.log('Selected Weather:', this.formData.weather);
   }
 
   onSubmit() {
