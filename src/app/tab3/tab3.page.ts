@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'
 import {
   IonCard,
   IonCardHeader,
@@ -12,14 +13,14 @@ import {
   IonIcon,
   IonRange,
   IonButton,
-  IonLabel, IonCol, IonGrid, IonRow } from '@ionic/angular/standalone';
+  IonLabel, IonCol, IonGrid, IonRow, IonDatetime } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss'],
   standalone: true,
-  imports: [IonRow, IonGrid, IonCol, 
+  imports: [IonDatetime, IonRow, IonGrid, IonCol, 
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -33,25 +34,33 @@ import {
     IonRange,
     IonButton,
     IonLabel,
+    CommonModule
   ],
 })
 export class Tab3Page {
-  emotions = [
-    { label: 'Very Sad', icon: 'sad-outline' },
-    { label: 'Sad', icon: 'frown-outline' },
-    { label: 'Neutral', icon: 'ellipse-outline' },
-    { label: 'Happy', icon: 'happy-outline' },
-    { label: 'Very Happy', icon: 'smile-outline' },
-  ];
 
-  currentEmotion = this.emotions[3]; // Default: Happy
+  selectedDate: string | null = null; // Fecha seleccionada
+  selectedDayContent: string[] | null = null; // Contenido del día
 
-  onEmotionChange(event: any) {
-    this.currentEmotion = this.emotions[event.detail.value];
+  // Contenido de ejemplo para cada día
+  contentByDate: { [key: string]: string[] } = {
+    '2025-01-18': ['Evento 1', 'Tarea 2', 'Nota importante'],
+    '2025-01-19': ['Reunión', 'Cita con el doctor', 'Recordatorio'],
+    // Agrega más fechas y contenido aquí
+  };
+
+  onDateSelected(event: any) {
+    this.selectedDate = event.detail.value; // Fecha seleccionada
+    if (this.selectedDate && this.contentByDate[this.selectedDate]) {
+      this.selectedDayContent = this.contentByDate[this.selectedDate];
+    } else {
+      this.selectedDayContent = ['No hay contenido disponible'];
+    }
   }
+}
 
-  onContinue() {
-    console.log('Emotion selected:', this.currentEmotion);
-    // Lógica adicional para manejar el botón "Continue"
-  }
+interface Day {
+  date: number | '';
+  isToday: boolean;
+  isSelected: boolean;
 }

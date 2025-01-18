@@ -57,15 +57,35 @@
     </ion-row>
   </ion-grid>
 
-  <ion-range
-    min="0"
-    max="4"
-    snaps="true"
-    (ionChange)="onEmotionChange($event)"
-  >
-    <ion-label slot="start">Sad</ion-label>
-    <ion-label slot="end">Happy</ion-label>
-  </ion-range>
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Calendario</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding">
+    <!-- Calendario usando ion-datetime -->
+    <ion-datetime
+      style="--background: #000; --color: #fff;"  
+      presentation="date"
+      [value]="selectedDate"
+      first-day-of-week="1"
+      (ionChange)="onDateSelected($event)"
+      locale="en-US"
+      show-default-buttons="true"
+    >
+    </ion-datetime>
+  
+    <!-- Botón para confirmar la selección -->
+    <!-- Contenedor para mostrar el contenido del día -->
+  <div *ngIf="selectedDayContent" class="day-content">
+    <h2>Contenido para {{ selectedDate | date: 'fullDate' }}</h2>
+    <ul>
+      <li *ngFor="let item of selectedDayContent">{{ item }}</li>
+    </ul>
+  </div>
 
-  <ion-button expand="block" shape="round" (click)="onContinue()">Continue</ion-button>
+  </ion-content>
+  
+  
 </ion-content>
