@@ -18,7 +18,7 @@ export class Tab2Page {
     place: '',
     weather: [] as string[], // Array para almacenar múltiples opciones seleccionadas
     dayDescription: '', // Nueva propiedad para la descripción del día
-    imagePath: '', // Ruta de la imagen seleccionada
+    imagePaths: [] as string[], // Ruta de la imagen seleccionada
   };
 
   // Opciones de clima
@@ -54,13 +54,16 @@ export class Tab2Page {
         quality: 100,
       });
 
-      // Guardar la ruta de la imagen seleccionada
-      this.formData.imagePath = photo.webPath || '';
-      console.log('Image selected:', this.formData.imagePath);
+      // Agregar la ruta de la imagen seleccionada al array
+      if (photo.webPath) {
+        this.formData.imagePaths.push(photo.webPath);
+      }
+      console.log('Images selected:', this.formData.imagePaths);
     } catch (error) {
       console.error('Error selecting image:', error);
     }
   }
+
 
   // Enviar el formulario
   onSubmit() {
