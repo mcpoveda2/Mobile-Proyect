@@ -16,26 +16,25 @@ import {
   IonLabel, IonCol, IonGrid, IonRow, IonDatetime } from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss'],
-  standalone: true,
-  imports: [IonDatetime, IonRow, IonGrid, IonCol, 
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonCard,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonCardContent,
-    IonIcon,
-    IonRange,
-    IonButton,
-    IonLabel,
-    CommonModule
-  ],
+    selector: 'app-tab3',
+    templateUrl: 'tab3.page.html',
+    styleUrls: ['tab3.page.scss'],
+    imports: [IonDatetime, IonRow, IonGrid, IonCol,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonContent,
+        IonCard,
+        IonCardHeader,
+        IonCardSubtitle,
+        IonCardTitle,
+        IonCardContent,
+        IonIcon,
+        IonRange,
+        IonButton,
+        IonLabel,
+        CommonModule
+    ]
 })
 export class Tab3Page {
 

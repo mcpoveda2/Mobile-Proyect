@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonInput, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonInput, IonButton, IonImg, IonChip } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core';
+import { EntryService } from '../services/entry.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonInput, IonButton, FormsModule, CommonModule],
+    selector: 'app-tab2',
+    templateUrl: 'tab2.page.html',
+    styleUrls: ['tab2.page.scss'],
+    standalone: true,
+    imports: [IonChip, IonImg, IonContent, IonInput, IonButton, CommonModule, ReactiveFormsModule,FormsModule],
+    providers: [EntryService]
 })
 export class Tab2Page {
   formData = {
@@ -24,7 +26,7 @@ export class Tab2Page {
 
   weatherOptions = ['Sunny', 'Windy', 'Overcast', 'Rain showers', 'Thunderstorm', 'Rainy', 'Snow'];
 
-  constructor() {
+  constructor(private entryService: EntryService) {
     this.loadSavedImages();
   }
 
@@ -40,15 +42,16 @@ export class Tab2Page {
   async selectImage() {
     try {
       const photo = await Camera.getPhoto({
-        resultType: CameraResultType.Uri,
+        resultType: CameraResultType.Uri, // Obtenemos la imagen como URI
         source: CameraSource.Photos,
         quality: 100,
       });
-
+  
       if (photo.webPath) {
-        this.formData.imagePaths.push(photo.webPath);
-        this.saveImagePathsToLocalStorage();
-        console.log('Saved Image Path:', photo.webPath);
+        const base64Data = await this.convertToBase64(photo.webPath); // Convertimos a Base64
+        this.formData.imagePaths.push(base64Data); // Guardamos el Base64 en el array
+        this.saveImagePathsToLocalStorage(); // Guardamos en LocalStorage
+        console.log('Saved Image as Base64:', base64Data);
       }
     } catch (error) {
       console.error('Error selecting image:', error);
@@ -84,30 +87,25 @@ export class Tab2Page {
       console.log('Loaded saved form data:', this.formData);
     }
   }
+  
 
-  onSubmit() {
-    const payload = {
-      title: this.formData.title,
-      place: this.formData.place,
-      date: this.formData.date,
-      weather: this.formData.weather,
-      dayDescription: this.formData.dayDescription,
-      imagePaths: this.formData.imagePaths,
-    };
+  async onSubmit() {
+    try {
+      // Llama al servicio para guardar la entrada en Firestore
+      await this.entryService.createEntry(this.formData);
+      console.log('Entry saved to Firebase:', this.formData);
 
-    console.log('Payload to send:', JSON.stringify(payload, null, 2));
-
-    // Guardar los datos en LocalStorage
-    this.saveImagePathsToLocalStorage();
-
-    // Limpiar todos los campos del formulario
-    this.formData = {
-      title: '',
-      place: '',
-      date: '',
-      weather: [],
-      dayDescription: '',
-      imagePaths: [],
-    };
+      // Limpia el formulario después de guardar
+      this.formData = {
+        title: '',
+        place: '',
+        date: '',
+        weather: [],
+        dayDescription: '',
+        imagePaths: [],
+      };
+    } catch (error) {
+      console.error('Error saving entry:', error);
+    }
   }
 }
