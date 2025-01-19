@@ -26,7 +26,7 @@
       <div class="form-group">
         <label class="form-label">Date</label>
         <ion-input
-          [(ngModel)]="formData.title"
+          [(ngModel)]="formData.date"
           name="date"
           placeholder="Enter a Date"
         ></ion-input>
@@ -69,9 +69,9 @@
         <!-- Mostrar todas las imágenes seleccionadas -->
         <div class="image-preview-list">
           <div *ngFor="let imagePath of formData.imagePaths" class="image-preview">
-            <img [src]="imagePath" alt="Selected Image" />
+            <img [src]="imagePath" alt="Saved Image" />
           </div>
-        </div>
+        </div>                       
       </div>
 
       <ion-button expand="block" type="submit" color="primary">Save</ion-button>
