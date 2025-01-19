@@ -29,7 +29,6 @@
     <ion-list>
       <!-- Recorremos las entradas dinámicamente -->
       <ion-item *ngFor="let entry of entries" class="entry-container">
-        <!-- Contenedor de imagen y descripción -->
         <div class="entry-content">
           <div class="entry-images">
             <img *ngFor="let image of entry.imagePaths" [src]="image" alt="Entry Image" />
@@ -40,13 +39,13 @@
             <p><strong>Place:</strong> {{ entry.place }}</p>
             <p><strong>Description:</strong> {{ entry.dayDescription }}</p>
             <div class="weather-tags">
-              <ion-chip *ngFor="let weather of entry.weather" class="tags-category">{{ weather }}</ion-chip>
+              <ion-chip *ngFor="let weather of entry.weather" class="tags-category">
+                {{ weather }}
+              </ion-chip>
             </div>
           </div>
         </div>
       </ion-item>
     </ion-list>
   </div>
-
-  
 </ion-content>

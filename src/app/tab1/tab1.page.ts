@@ -17,26 +17,22 @@ import {
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss'],
-  standalone: true,
-  imports: [IonLabel, IonItem, IonList, 
-    CommonModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonAvatar,
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonSelect,
-    IonSelectOption,
-    IonChip, 
-  ],
+    selector: 'app-tab1',
+    templateUrl: 'tab1.page.html',
+    styleUrls: ['tab1.page.scss'],
+    imports: [IonHeader, 
+      IonToolbar, 
+      IonTitle, 
+      IonContent, 
+      IonAvatar, 
+      IonCard, 
+      IonCardContent, 
+      IonCardHeader, 
+      IonCardSubtitle, 
+      IonCardTitle, 
+      IonSelect, 
+      IonSelectOption, 
+      IonChip, IonList, IonItem, IonLabel,CommonModule],
 })
 export class Tab1Page {
   public userName: string = 'Luis Romero'; // Nombre del usuario
@@ -53,12 +49,12 @@ export class Tab1Page {
   constructor(private entryService: EntryService) {}
 
   ionViewWillEnter() {
-    // Cargar las entradas desde el servicio
+    // Cargar las entradas desde Firebase
     this.entryService.getEntries().subscribe((entries) => {
       this.entries = entries;
       console.log('Entries loaded from Firebase:', this.entries);
+      this.sortEntries({ detail: { value: 'date' } }); // Ordenar por fecha por defecto
     });
-    this.sortEntries({ detail: { value: 'date' } }); // Ordenar por fecha por defecto
   }
 
   sortEntries(event: any) {

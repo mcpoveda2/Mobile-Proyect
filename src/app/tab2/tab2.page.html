@@ -1,86 +1,89 @@
 <ion-content [fullscreen]="true" class="tab2-content">
+  <!-- Header -->
   <div class="header-container">
-    <h1 class="title">Add entry</h1>
+    <h1 class="title">Add Entry</h1>
   </div>
 
+  <!-- Formulario -->
   <div class="form-container">
     <form (ngSubmit)="onSubmit()">
+      <!-- Campo: Título -->
       <div class="form-group">
         <label class="form-label">Title</label>
         <ion-input
           [(ngModel)]="formData.title"
           name="title"
           placeholder="Enter a title"
+          required
         ></ion-input>
       </div>
 
+      <!-- Campo: Lugar -->
       <div class="form-group">
         <label class="form-label">Place</label>
         <ion-input
           [(ngModel)]="formData.place"
           name="place"
           placeholder="Enter a place"
+          required
         ></ion-input>
       </div>
 
+      <!-- Campo: Fecha -->
       <div class="form-group">
         <label class="form-label">Date</label>
-        <ion-input
+        <ion-datetime
           [(ngModel)]="formData.date"
           name="date"
-          type="date"
-          placeholder="Enter a Date"
-        ></ion-input>
+          placeholder="Select a date"
+          presentation="date"
+        ></ion-datetime>
       </div>
 
-      <!-- Weather section -->
+      <!-- Sección: Clima -->
       <div class="form-group">
         <label class="form-label">Weather</label>
         <div class="weather-container">
-          <div
+          <ion-chip
             *ngFor="let condition of weatherOptions"
-            class="weather-button"
-            [class.active]="formData.weather.includes(condition)"
+            [color]="formData.weather.includes(condition) ? 'primary' : 'medium'"
             (click)="toggleWeather(condition)"
           >
             {{ condition }}
-          </div>
+          </ion-chip>
         </div>
       </div>
 
-      <!-- Editable text area -->
+      <!-- Campo: Descripción -->
       <div class="form-group">
         <label class="form-label">Write about your day</label>
-        <div class="day-textarea-container">
-          <textarea
-            [(ngModel)]="formData.dayDescription"
-            name="dayDescription"
-            placeholder="Write about your day..."
-            class="day-textarea"
-          ></textarea>
-        </div>
+        <ion-textarea
+          [(ngModel)]="formData.dayDescription"
+          name="dayDescription"
+          placeholder="Write about your day..."
+          auto-grow="true"
+        ></ion-textarea>
       </div>
-      
+
+      <!-- Subir Imágenes -->
       <div class="form-group">
         <label class="form-label">Upload Pictures</label>
         <ion-button expand="block" (click)="selectImage()" color="secondary">
           Select Images
         </ion-button>
 
-        <!-- Mostrar todas las imágenes seleccionadas -->
+        <!-- Vista previa de imágenes -->
         <div class="image-preview-list">
-          <div *ngFor="let imagePath of formData.imagePaths" class="image-preview">
-            <img [src]="imagePath" alt="Saved Image" />
-          </div>
-        </div>                       
+          <ion-img
+            *ngFor="let imagePath of formData.imagePaths"
+            [src]="imagePath"
+            class="image-preview"
+          ></ion-img>
+        </div>
       </div>
 
+      <!-- Botón: Guardar -->
       <ion-button expand="block" type="submit" color="primary">Save</ion-button>
     </form>
   </div>
-
-  <div *ngFor="let image of formData.imagePaths">
-    <img [src]="image" alt="Selected Image" style="max-width: 100%; height: auto;" />
-  </div>
-  
 </ion-content>

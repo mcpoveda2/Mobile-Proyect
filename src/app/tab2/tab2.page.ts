@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonInput, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonInput, IonButton, IonImg, IonChip } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core';
 import { EntryService } from '../services/entry.service';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonInput, IonButton, FormsModule, CommonModule],
+    selector: 'app-tab2',
+    templateUrl: 'tab2.page.html',
+    styleUrls: ['tab2.page.scss'],
+    standalone: true,
+    imports: [IonChip, IonImg, IonContent, IonInput, IonButton, CommonModule, ReactiveFormsModule,FormsModule],
+    providers: [EntryService]
 })
 export class Tab2Page {
   formData = {
@@ -90,19 +90,22 @@ export class Tab2Page {
   
 
   async onSubmit() {
-    // Agregar la entrada al servicio
-    this.entryService.createEntry(this.formData);
+    try {
+      // Llama al servicio para guardar la entrada en Firestore
+      await this.entryService.createEntry(this.formData);
+      console.log('Entry saved to Firebase:', this.formData);
 
-    console.log('Entry saved to service:', this.formData);
-
-    // Limpiar todos los campos del formulario
-    this.formData = {
-      title: '',
-      place: '',
-      date: '',
-      weather: [],
-      dayDescription: '',
-      imagePaths: [],
-    };
+      // Limpia el formulario después de guardar
+      this.formData = {
+        title: '',
+        place: '',
+        date: '',
+        weather: [],
+        dayDescription: '',
+        imagePaths: [],
+      };
+    } catch (error) {
+      console.error('Error saving entry:', error);
+    }
   }
 }

@@ -14,24 +14,25 @@ import {
 import { addIcons } from 'ionicons';
 import { homeOutline, personOutline, add } from 'ionicons/icons';
 import { Router } from '@angular/router'; // Importa el enrutador de Angular
+import { IonRouterOutlet} from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'app-tabs',
-  templateUrl: 'tabs.page.html',
-  styleUrls: ['tabs.page.scss'],
-  standalone: true,
-  imports: [
-    IonTabs, 
-    IonTabBar, 
-    IonTabButton, 
-    IonIcon, 
-    IonLabel, 
-    IonFab, 
-    IonFabButton, 
-    IonHeader, 
-    IonToolbar, 
-    IonTitle
-  ],
+    selector: 'app-tabs',
+    templateUrl: 'tabs.page.html',
+    styleUrls: ['tabs.page.scss'],
+    imports: [
+        IonTabs,
+        IonTabBar,
+        IonTabButton,
+        IonIcon,
+        IonLabel,
+        IonFab,
+        IonFabButton,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonRouterOutlet
+    ]
 })
 export class TabsPage {
   public environmentInjector = inject(EnvironmentInjector);
@@ -40,7 +41,7 @@ export class TabsPage {
     addIcons({ homeOutline, personOutline, add });
   }
 
-  onFabClick() {
+  navigateToTab2() {
     this.router.navigate(['/tabs/tab2']); // Navega al Tab 2
   }
 }
