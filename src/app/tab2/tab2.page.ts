@@ -1,49 +1,73 @@
 import { Component } from '@angular/core';
-import {
-  IonContent,
-  IonItem,
-  IonInput,
-  IonIcon,
-  IonDatetime,
-  IonModal,
-} from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { IonContent, IonInput, IonButton } from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common'; // Importar CommonModule
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonContent,
-    IonItem,
-    IonInput,
-    IonIcon,
-    IonDatetime,
-    IonModal,
-  ],
+  imports: [IonContent, IonInput, IonButton, FormsModule, CommonModule],
 })
 export class Tab2Page {
-  public selectedDate: string = ''; // Fecha seleccionada en formato ISO
-  public formattedDate: string = ''; // Fecha formateada para el input
-  public isDatePickerOpen: boolean = false; // Controla si el modal está abierto
+  // Datos del formulario
+  formData = {
+    title: '',
+    place: '',
+    date:'',
+    weather: [] as string[], // Array para almacenar múltiples opciones seleccionadas
+    dayDescription: '', // Nueva propiedad para la descripción del día
+    imagePaths: [] as string[], // Ruta de la imagen seleccionada
+  };
 
-  constructor() {}
+  // Opciones de clima
+  weatherOptions = [
+    'Sunny',
+    'Windy',
+    'Overcast',
+    'Rain showers',
+    'Thunderstorm',
+    'Rainy',
+    'Snow',
+  ];
 
-  openDatePicker() {
-    this.isDatePickerOpen = true; // Abre el modal
+  // Método para seleccionar/deseleccionar un clima
+  toggleWeather(condition: string) {
+    const index = this.formData.weather.indexOf(condition);
+    if (index === -1) {
+      // Si no está seleccionado, agregarlo
+      this.formData.weather.push(condition);
+    } else {
+      // Si ya está seleccionado, eliminarlo
+      this.formData.weather.splice(index, 1);
+    }
+    console.log('Selected Weather:', this.formData.weather);
   }
 
-  closeDatePicker() {
-    this.isDatePickerOpen = false; // Cierra el modal
+   // Seleccionar una imagen
+   async selectImage() {
+    try {
+      const photo = await Camera.getPhoto({
+        resultType: CameraResultType.Uri, // Obtener URI de la imagen
+        source: CameraSource.Photos, // Seleccionar desde la galería
+        quality: 100,
+      });
+
+      // Agregar la ruta de la imagen seleccionada al array
+      if (photo.webPath) {
+        this.formData.imagePaths.push(photo.webPath);
+      }
+      console.log('Images selected:', this.formData.imagePaths);
+    } catch (error) {
+      console.error('Error selecting image:', error);
+    }
   }
 
-  onDateChange(event: any) {
-    const date = new Date(event.detail.value); // Convierte la fecha seleccionada a un objeto Date
-    this.formattedDate = date.toLocaleDateString(); // Formatea la fecha en formato local
-    this.closeDatePicker(); // Cierra el modal después de seleccionar la fecha
+
+  // Enviar el formulario
+  onSubmit() {
+    console.log('Form Data:', this.formData);
   }
 }
