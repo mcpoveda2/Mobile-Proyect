@@ -30,12 +30,14 @@
       <!-- Etiquetas sobre la tarjeta -->
       <ion-card-header>
         <ion-card-title>{{ card.title }}</ion-card-title>
-        <ion-card-subtitle>{{ card.subtitle }}</ion-card-subtitle>
+        <ion-card-subtitle>{{ card.date }} | {{ card.place }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        {{ card.content }}
+        <p>{{ card.dayDescription }}</p>
       </ion-card-content>
-      <ion-chip *ngFor="let tag of card.tags" class="tags-category">{{ tag }}</ion-chip>
+      <div class="weather-tags">
+        <ion-chip *ngFor="let weather of card.weather" class="tags-category">{{ weather }}</ion-chip>
+      </div>
     </ion-card>
   </div>
 </ion-content>

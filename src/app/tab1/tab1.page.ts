@@ -44,27 +44,38 @@ export class Tab1Page {
 
   public cards = [
     {
-      title: 'Trip to Skagen',
-      subtitle: '10 May',
-      content: `Today was awesome! Went to Skagen with Petra and John. 
-        Skagen is so calm and relaxing city, first we saw the city and then we went to the beach...`,
-      tags: ['Happy', 'Sunny', 'Trip', 'Skagen'],
+      title: "Sunset Stroll",
+      place: "Seaside",
+      date: "09 July",
+      weather: ["Sunny", "Windy"],
+      dayDescription: "A beautiful walk along the seaside as the sun set. The breeze made it even more enjoyable.",
+      imagePaths: [
+        "http://localhost:8100/_capacitor_file_/path/to/seaside1.jpeg",
+        "http://localhost:8100/_capacitor_file_/path/to/seaside2.jpeg"
+      ]
     },
     {
-      title: 'Birthday Party',
-      subtitle: '7 May',
-      content: `Today I was invited to Lucas birthday party, he’s gonna have birthday in 6 days. 
-        I need to buy him some gift. Need to write down some ideas. The day was usual...`,
-      tags: ['Boring', 'Rainy', 'Friends'],
+      title: "Rainy Day Escape",
+      place: "Cozy Cabin",
+      date: "10 May",
+      weather: ["Rainy", "Thunderstorm"],
+      dayDescription: "Stayed indoors in a cozy cabin, listening to the thunderstorm and the rain tapping on the windows.",
+      imagePaths: [
+        "http://localhost:8100/_capacitor_file_/path/to/cabin1.jpeg",
+        "http://localhost:8100/_capacitor_file_/path/to/cabin2.jpeg"
+      ]
     },
     {
-      title: 'Vet Visit',
-      subtitle: '5 May',
-      content: `I woke up, ate breakfast and made some coffee. 
-        The day started as usual until I found out that my Max is sick! 
-        I had to take him to the vet. I was really worried...`,
-      tags: ['Worried', 'Cloudy', 'Max', 'Vet', 'Pet'],
-    },
+      title: "Snowy Adventure",
+      place: "Ski Resort",
+      date: "15 December",
+      weather: ["Snow", "Overcast"],
+      dayDescription: "Hit the slopes for some skiing fun. The snow-covered mountains were stunning despite the overcast sky.",
+      imagePaths: [
+        "http://localhost:8100/_capacitor_file_/path/to/ski1.jpeg",
+        "http://localhost:8100/_capacitor_file_/path/to/ski2.jpeg"
+      ]
+    }
   ];
   
   public sortOptions = [
@@ -79,7 +90,7 @@ export class Tab1Page {
   sortEntries(event: any) {
     const sortBy = event.detail.value;
     if (sortBy === 'date') {
-      this.sortedCards = this.cards.sort((a, b) => (a.subtitle > b.subtitle ? -1 : 1));
+      this.sortedCards = this.cards.sort((a, b) => (a.date > b.date ? -1 : 1));
     } else if (sortBy === 'title') {
       this.sortedCards = this.cards.sort((a, b) => (a.title > b.title ? 1 : -1));
     }

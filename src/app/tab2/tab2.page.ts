@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonInput, IonButton } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
-// import { Filesystem, Directory } from '@capacitor/filesystem'; // Comentado para pruebas en navegador
 import { Capacitor } from '@capacitor/core';
 
 @Component({
@@ -26,7 +25,6 @@ export class Tab2Page {
   weatherOptions = ['Sunny', 'Windy', 'Overcast', 'Rain showers', 'Thunderstorm', 'Rainy', 'Snow'];
 
   constructor() {
-    // Cargar las rutas guardadas al iniciar la app
     this.loadSavedImages();
   }
 
@@ -48,10 +46,7 @@ export class Tab2Page {
       });
 
       if (photo.webPath) {
-        // Para pruebas en navegador, solo guardar la ruta webPath directamente
         this.formData.imagePaths.push(photo.webPath);
-
-        // Guardar las rutas actualizadas en LocalStorage
         this.saveImagePathsToLocalStorage();
         console.log('Saved Image Path:', photo.webPath);
       }
@@ -59,19 +54,6 @@ export class Tab2Page {
       console.error('Error selecting image:', error);
     }
   }
-
-  // private async saveImage(photo: Photo): Promise<string> { // Comentado para pruebas en navegador
-  //   const base64Data = await this.convertToBase64(photo.webPath!);
-  //   const fileName = `IMG_${Date.now()}.jpeg`;
-
-  //   const savedFile = await Filesystem.writeFile({
-  //     path: `images/${fileName}`,
-  //     data: base64Data,
-  //     directory: Directory.Data,
-  //   });
-
-  //   return savedFile.uri;
-  // }
 
   private async convertToBase64(webPath: string): Promise<string> {
     const response = await fetch(webPath);
@@ -90,16 +72,16 @@ export class Tab2Page {
 
   // Guardar rutas de imágenes en LocalStorage
   saveImagePathsToLocalStorage() {
-    localStorage.setItem('imagePaths', JSON.stringify(this.formData.imagePaths));
-    console.log('Image paths saved to LocalStorage');
+    localStorage.setItem('formData', JSON.stringify(this.formData));
+    console.log('Form data saved to LocalStorage');
   }
 
   // Cargar rutas de imágenes al iniciar la app
   loadSavedImages() {
-    const savedPaths = localStorage.getItem('imagePaths');
-    if (savedPaths) {
-      this.formData.imagePaths = JSON.parse(savedPaths);
-      console.log('Loaded saved image paths:', this.formData.imagePaths);
+    const savedData = localStorage.getItem('formData');
+    if (savedData) {
+      this.formData = JSON.parse(savedData);
+      console.log('Loaded saved form data:', this.formData);
     }
   }
 
@@ -114,5 +96,18 @@ export class Tab2Page {
     };
 
     console.log('Payload to send:', JSON.stringify(payload, null, 2));
+
+    // Guardar los datos en LocalStorage
+    this.saveImagePathsToLocalStorage();
+
+    // Limpiar todos los campos del formulario
+    this.formData = {
+      title: '',
+      place: '',
+      date: '',
+      weather: [],
+      dayDescription: '',
+      imagePaths: [],
+    };
   }
 }
