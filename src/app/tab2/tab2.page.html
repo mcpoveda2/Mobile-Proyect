@@ -50,6 +50,16 @@
           ></textarea>
         </div>
       </div>
+      
+      <div class="form-group">
+        <label class="form-label">Upload Picture</label>
+        <ion-button expand="block" (click)="selectImage()" color="secondary">
+          Select Image
+        </ion-button>
+        <div *ngIf="formData.imagePath" class="image-preview">
+          <img [src]="formData.imagePath" alt="Selected Image" />
+        </div>
+      </div>
 
       <ion-button expand="block" type="submit" color="primary">Save</ion-button>
     </form>

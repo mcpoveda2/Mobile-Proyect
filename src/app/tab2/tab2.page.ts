@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonInput, IonButton } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common'; // Importar CommonModule
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-tab2',
@@ -17,6 +18,7 @@ export class Tab2Page {
     place: '',
     weather: [] as string[], // Array para almacenar múltiples opciones seleccionadas
     dayDescription: '', // Nueva propiedad para la descripción del día
+    imagePath: '', // Ruta de la imagen seleccionada
   };
 
   // Opciones de clima
@@ -43,6 +45,24 @@ export class Tab2Page {
     console.log('Selected Weather:', this.formData.weather);
   }
 
+   // Seleccionar una imagen
+   async selectImage() {
+    try {
+      const photo = await Camera.getPhoto({
+        resultType: CameraResultType.Uri, // Obtener URI de la imagen
+        source: CameraSource.Photos, // Seleccionar desde la galería
+        quality: 100,
+      });
+
+      // Guardar la ruta de la imagen seleccionada
+      this.formData.imagePath = photo.webPath || '';
+      console.log('Image selected:', this.formData.imagePath);
+    } catch (error) {
+      console.error('Error selecting image:', error);
+    }
+  }
+
+  // Enviar el formulario
   onSubmit() {
     console.log('Form Data:', this.formData);
   }

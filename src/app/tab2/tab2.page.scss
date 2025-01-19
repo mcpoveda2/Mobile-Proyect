@@ -31,6 +31,23 @@
         display: block;
       }
 
+      .upload-picture {
+        margin-top: 10px;
+
+        .image-preview {
+          margin-top: 16px;
+          text-align: center;
+
+          img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          }
+        }
+      }
+
       ion-input {
         --padding-start: 8px;
         --padding-end: 8px;
