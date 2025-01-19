@@ -14,7 +14,7 @@ import {
 import { addIcons } from 'ionicons';
 import { homeOutline, personOutline, add } from 'ionicons/icons';
 import { Router } from '@angular/router'; // Importa el enrutador de Angular
-import { IonRouterOutlet} from '@ionic/angular/standalone';
+
 
 @Component({
     selector: 'app-tabs',
@@ -30,8 +30,7 @@ import { IonRouterOutlet} from '@ionic/angular/standalone';
         IonFabButton,
         IonHeader,
         IonToolbar,
-        IonTitle,
-        IonRouterOutlet
+        IonTitle
     ]
 })
 export class TabsPage {
