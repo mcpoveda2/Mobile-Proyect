@@ -4,6 +4,8 @@ import { IonContent, IonInput, IonButton } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core';
+import { EntryService } from '../services/entry.service';
+
 
 @Component({
   selector: 'app-tab2',
@@ -24,7 +26,7 @@ export class Tab2Page {
 
   weatherOptions = ['Sunny', 'Windy', 'Overcast', 'Rain showers', 'Thunderstorm', 'Rainy', 'Snow'];
 
-  constructor() {
+  constructor(private entryService: EntryService) {
     this.loadSavedImages();
   }
 
@@ -40,15 +42,16 @@ export class Tab2Page {
   async selectImage() {
     try {
       const photo = await Camera.getPhoto({
-        resultType: CameraResultType.Uri,
+        resultType: CameraResultType.Uri, // Obtenemos la imagen como URI
         source: CameraSource.Photos,
         quality: 100,
       });
-
+  
       if (photo.webPath) {
-        this.formData.imagePaths.push(photo.webPath);
-        this.saveImagePathsToLocalStorage();
-        console.log('Saved Image Path:', photo.webPath);
+        const base64Data = await this.convertToBase64(photo.webPath); // Convertimos a Base64
+        this.formData.imagePaths.push(base64Data); // Guardamos el Base64 en el array
+        this.saveImagePathsToLocalStorage(); // Guardamos en LocalStorage
+        console.log('Saved Image as Base64:', base64Data);
       }
     } catch (error) {
       console.error('Error selecting image:', error);
@@ -84,21 +87,13 @@ export class Tab2Page {
       console.log('Loaded saved form data:', this.formData);
     }
   }
+  
 
-  onSubmit() {
-    const payload = {
-      title: this.formData.title,
-      place: this.formData.place,
-      date: this.formData.date,
-      weather: this.formData.weather,
-      dayDescription: this.formData.dayDescription,
-      imagePaths: this.formData.imagePaths,
-    };
+  async onSubmit() {
+    // Agregar la entrada al servicio
+    this.entryService.createEntry(this.formData);
 
-    console.log('Payload to send:', JSON.stringify(payload, null, 2));
-
-    // Guardar los datos en LocalStorage
-    this.saveImagePathsToLocalStorage();
+    console.log('Entry saved to service:', this.formData);
 
     // Limpiar todos los campos del formulario
     this.formData = {

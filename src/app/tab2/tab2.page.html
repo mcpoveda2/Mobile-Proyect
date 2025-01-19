@@ -28,6 +28,7 @@
         <ion-input
           [(ngModel)]="formData.date"
           name="date"
+          type="date"
           placeholder="Enter a Date"
         ></ion-input>
       </div>
@@ -77,4 +78,9 @@
       <ion-button expand="block" type="submit" color="primary">Save</ion-button>
     </form>
   </div>
+
+  <div *ngFor="let image of formData.imagePaths">
+    <img [src]="image" alt="Selected Image" style="max-width: 100%; height: auto;" />
+  </div>
+  
 </ion-content>
