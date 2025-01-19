@@ -16,6 +16,7 @@ export class Tab2Page {
   formData = {
     title: '',
     place: '',
+    date:'',
     weather: [] as string[], // Array para almacenar múltiples opciones seleccionadas
     dayDescription: '', // Nueva propiedad para la descripción del día
     imagePaths: [] as string[], // Ruta de la imagen seleccionada
