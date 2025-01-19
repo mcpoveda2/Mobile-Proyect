@@ -16,6 +16,7 @@ export class Tab2Page {
     title: '',
     place: '',
     weather: [] as string[], // Array para almacenar múltiples opciones seleccionadas
+    dayDescription: '', // Nueva propiedad para la descripción del día
   };
 
   // Opciones de clima

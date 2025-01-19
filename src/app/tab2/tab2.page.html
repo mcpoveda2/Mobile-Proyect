@@ -38,6 +38,19 @@
         </div>
       </div>
 
+      <!-- Editable text area -->
+      <div class="form-group">
+        <label class="form-label">Write about your day</label>
+        <div class="day-textarea-container">
+          <textarea
+            [(ngModel)]="formData.dayDescription"
+            name="dayDescription"
+            placeholder="Write about your day..."
+            class="day-textarea"
+          ></textarea>
+        </div>
+      </div>
+
       <ion-button expand="block" type="submit" color="primary">Save</ion-button>
     </form>
   </div>
