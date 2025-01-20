@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit,OnInit  } from '@angular/core';
 import { CommonModule } from '@angular/common'
 import {
   IonCard,
@@ -14,6 +14,8 @@ import {
   IonRange,
   IonButton,
   IonLabel, IonCol, IonGrid, IonRow, IonDatetime } from '@ionic/angular/standalone';
+
+import { EntryService } from '../services/entry.service';
 
 @Component({
     selector: 'app-tab3',
@@ -40,25 +42,30 @@ export class Tab3Page {
 
   selectedDate: string | null = null; // Fecha seleccionada
   selectedDayContent: string[] | null = null; // Contenido del día
+  contentByDate: { [key: string]: string[] } = {}; // Mapa de contenido por fecha
 
-  // Contenido de ejemplo para cada día
-  contentByDate: { [key: string]: string[] } = {
-    '2025-01-18': [
-      'https://educa30.b-cdn.net/wp-content/uploads/2020/04/mejores-bancos-de-imagenes-gratis-860x492.jpg',
-    ],
-    '2025-01-19': [
-      'https://empresas.blogthinkbig.com/wp-content/uploads/2019/11/Imagen3-245003649.jpg?fit=960%2C720',
-    ],
-  };
+  constructor(private entryService: EntryService) {}
+
+  ngOnInit() {
+    this.loadPhotosByDate();
+  }
 
   ngAfterViewInit() {
     this.addImagesToCalendar();
   }
+
+  loadPhotosByDate() {
+    this.entryService.getEntriesPhotosByDate().subscribe((photosByDate) => {
+      this.contentByDate = photosByDate;
+      this.addImagesToCalendar();
+    });
+  }
   
   onDateSelected(event: any) {
     const isoDate: string = event.detail.value;
-    const dateOnly = new Date(isoDate).toISOString().split('T')[0];
-    //  console.log(dateOnly);
+    const [year, month, day] = isoDate.split('T')[0].split('-').map(Number);
+    const dateOnly = new Date(year, month - 1, day).toISOString().split('T')[0]; // Nota: Los meses son 0-indexados
+    console.log(dateOnly);
 
     if (dateOnly && this.contentByDate[dateOnly]) {
       this.selectedDayContent = this.contentByDate[dateOnly];
@@ -66,6 +73,7 @@ export class Tab3Page {
       this.selectedDayContent = ['No hay contenido disponible'];
     }
   }
+
   addImagesToCalendar() {
     // Retraso breve para garantizar que el DOM del calendario esté listo
     setTimeout(() => {
@@ -83,7 +91,7 @@ export class Tab3Page {
           if (day && month && year) {
             // Construir la fecha en formato YYYY-MM-DD
             const date = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-  
+            console.log(date);
             // Verificar si hay contenido para esta fecha
             if (this.contentByDate[date]) {
               // Verificar si ya existe una imagen para evitar duplicados
@@ -108,6 +116,7 @@ export class Tab3Page {
       }
     }, 100); // Retraso para asegurarnos de que el DOM esté listo
   }
+  
   
   
 
