@@ -35,8 +35,8 @@ import { CommonModule } from '@angular/common';
       IonChip, IonList, IonItem, IonLabel,CommonModule],
 })
 export class Tab1Page {
-  public userName: string = 'Luis Romero'; // Nombre del usuario
-  public profilePicture: string = 'assets/images/profile-picture.jpeg'; // Ruta de la imagen del perfil
+  public userName: string = 'User 1'; // Nombre del usuario
+  public profilePicture: string = 'assets/images/profile.jpg'; // Ruta de la imagen del perfil
 
   public entries: any[] = [];
   
