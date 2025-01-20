@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
 import { IonContent, IonInput, IonButton, IonImg, IonChip } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
-import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
-import { Capacitor } from '@capacitor/core';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { EntryService } from '../services/entry.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'app-tab2',
-    templateUrl: 'tab2.page.html',
-    styleUrls: ['tab2.page.scss'],
-    standalone: true,
-    imports: [IonChip, IonImg, IonContent, IonInput, IonButton, CommonModule, ReactiveFormsModule,FormsModule],
-    providers: [EntryService]
+  selector: 'app-tab2',
+  templateUrl: 'tab2.page.html',
+  styleUrls: ['tab2.page.scss'],
+  standalone: true,
+  imports: [IonChip, IonImg, IonContent, IonInput, IonButton, CommonModule, ReactiveFormsModule, FormsModule],
+  providers: [EntryService]
 })
 export class Tab2Page {
   formData = {
@@ -21,13 +20,13 @@ export class Tab2Page {
     date: '',
     weather: [] as string[],
     dayDescription: '',
-    imagePaths: [] as string[], // Guardar rutas persistentes
+    imagePaths: [] as string[],
   };
 
   weatherOptions = ['Sunny', 'Windy', 'Overcast', 'Rain showers', 'Thunderstorm', 'Rainy', 'Snow'];
 
   constructor(private entryService: EntryService) {
-    this.loadSavedImages();
+    this.resetForm(); // Asegura que el formulario esté vacío al iniciar
   }
 
   toggleWeather(condition: string) {
@@ -42,16 +41,14 @@ export class Tab2Page {
   async selectImage() {
     try {
       const photo = await Camera.getPhoto({
-        resultType: CameraResultType.Uri, // Obtenemos la imagen como URI
+        resultType: CameraResultType.Uri,
         source: CameraSource.Photos,
         quality: 100,
       });
-  
+
       if (photo.webPath) {
-        const base64Data = await this.convertToBase64(photo.webPath); // Convertimos a Base64
-        this.formData.imagePaths.push(base64Data); // Guardamos el Base64 en el array
-        this.saveImagePathsToLocalStorage(); // Guardamos en LocalStorage
-        console.log('Saved Image as Base64:', base64Data);
+        const base64Data = await this.convertToBase64(photo.webPath);
+        this.formData.imagePaths.push(base64Data);
       }
     } catch (error) {
       console.error('Error selecting image:', error);
@@ -69,61 +66,34 @@ export class Tab2Page {
     });
   }
 
-  convertFilePath(filePath: string): string {
-    return Capacitor.convertFileSrc(filePath);
-  }
-
-  // Guardar rutas de imágenes en LocalStorage
-  saveImagePathsToLocalStorage() {
-    localStorage.setItem('formData', JSON.stringify(this.formData));
-    console.log('Form data saved to LocalStorage');
-  }
-
-  // Cargar rutas de imágenes al iniciar la app
-  loadSavedImages() {
-    const savedData = localStorage.getItem('formData');
-    if (savedData) {
-      this.formData = JSON.parse(savedData);
-      console.log('Loaded saved form data:', this.formData);
-    }
-  }
-
   onDateChange(event: any) {
-    console.log('Fecha seleccionada:', event.detail.value);
-  
-    // Asignar el valor completo de la fecha seleccionada
-    const fullDate = event.detail.value;
-  
-    // Extraer solo la fecha (YYYY-MM-DD) sin usar new Date()
-    this.formData.date = fullDate.split('T')[0];
-  
-    console.log('Fecha procesada (solo fecha):', this.formData.date);
+    this.formData.date = event.detail.value.split('T')[0];
   }
-  
 
   async onSubmit() {
     try {
       if (!this.formData.date) {
         console.error('La fecha es requerida');
         return;
-      }else{
-        console.log('La fecha es:', this.formData.date);  
       }
-      // Llama al servicio para guardar la entrada en Firestore
-      await this.entryService.createEntry(this.formData);
-      console.log('Entry saved to Firebase:', this.formData);
 
-      // Limpia el formulario después de guardar
-      this.formData = {
-        title: '',
-        place: '',
-        date: '',
-        weather: [],
-        dayDescription: '',
-        imagePaths: [],
-      };
+      await this.entryService.createEntry(this.formData);
+      console.log('Entry saved:', this.formData);
+      this.resetForm();
     } catch (error) {
       console.error('Error saving entry:', error);
     }
+  }
+
+  resetForm() {
+    this.formData = {
+      title: '',
+      place: '',
+      date: '',
+      weather: [],
+      dayDescription: '',
+      imagePaths: [],
+    };
+    console.log('Formulario reiniciado');
   }
 }
