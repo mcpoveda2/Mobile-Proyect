@@ -87,10 +87,28 @@ export class Tab2Page {
       console.log('Loaded saved form data:', this.formData);
     }
   }
+
+  onDateChange(event: any) {
+    console.log('Fecha seleccionada:', event.detail.value);
+  
+    // Asignar el valor completo de la fecha seleccionada
+    const fullDate = event.detail.value;
+  
+    // Extraer solo la fecha (YYYY-MM-DD) sin usar new Date()
+    this.formData.date = fullDate.split('T')[0];
+  
+    console.log('Fecha procesada (solo fecha):', this.formData.date);
+  }
   
 
   async onSubmit() {
     try {
+      if (!this.formData.date) {
+        console.error('La fecha es requerida');
+        return;
+      }else{
+        console.log('La fecha es:', this.formData.date);  
+      }
       // Llama al servicio para guardar la entrada en Firestore
       await this.entryService.createEntry(this.formData);
       console.log('Entry saved to Firebase:', this.formData);
